@@ -8,6 +8,10 @@ const Movie = sequelize.define(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [1, 255],
+      },
     },
     dailyRentalRate: {
       type: DataTypes.DECIMAL(10, 2),
@@ -18,12 +22,17 @@ const Movie = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+      validate: {
+        len: [0, 1000]
+      }
     },
   },
   {
     tableName: "movies",
   }
 )
+
+Movie.beforeValidate(movie => movie.title = movie.title.trim())
 
 async function syncMovie() {
   await Movie.sync()
