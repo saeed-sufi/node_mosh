@@ -19,12 +19,13 @@ router.post("/", async (req, res) => {
   const email = await User.findOne({
     where: _.pick(value, "email"),
   })
-  if (email) return res.status(400).send("This email is already registered.")
+  if (email) return res.status(400).send("The email is already registered.")
 
   value.password = await bcrypt.hash(value.password, 10)
   const user = await User.create(_.pick(value, ["name", "email", "password"]))
 
   res.send(_.pick(user, ["id", "name", "email"]))
 })
+
 
 module.exports = router
