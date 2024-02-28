@@ -23,8 +23,8 @@ const Movie = sequelize.define(
       allowNull: false,
       defaultValue: 0,
       validate: {
-        len: [0, 1000]
-      }
+        len: [0, 1000],
+      },
     },
   },
   {
@@ -32,7 +32,11 @@ const Movie = sequelize.define(
   }
 )
 
-Movie.beforeValidate(movie => movie.title = movie.title.trim())
+Movie.beforeValidate((movie) => (movie.title = movie.title.trim()))
+
+Movie.associate = (models) => {
+  Movie.belongsToMany(models.Customer, { through: Rental, onDelete: "NO ACTION" })
+}
 
 async function syncMovie() {
   await Movie.sync()

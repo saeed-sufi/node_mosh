@@ -16,5 +16,5 @@ async function connectDb() {
   }
 }
 connectDb()
-
+// sequelize.sync({force: true})
 module.exports = sequelize
