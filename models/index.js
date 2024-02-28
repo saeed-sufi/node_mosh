@@ -3,6 +3,7 @@ const { Genre } = require("./genre")
 const { Customer } = require("./customer")
 const { Movie } = require("./movie")
 const { Rental } = require("./rental")
+const { Users } = require("./user")
 
 Genre.belongsToMany(Movie, { through: MovieGenre })
 Movie.belongsToMany(Genre, { through: MovieGenre })
@@ -13,4 +14,5 @@ module.exports = {
   Customer,
   Rental,
   Movie,
+  Users
 }
