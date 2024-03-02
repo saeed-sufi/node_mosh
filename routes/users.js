@@ -1,15 +1,15 @@
+const auth = require("../middleware/auth")
 const bcrypt = require("bcrypt")
 const _ = require("lodash")
 const express = require("express")
 const router = express.Router()
 const { User, validate } = require("../models/user")
 
-router.get("/", async (req, res) => {
-  const users = await User.findAll({
-    order: [["name", "DESC"]],
-    attributes: ["id", "name", "email"],
+router.get("/me", auth, async (req, res) => {
+  const user = await User.findOne({
+    where: { id: req.user.id },
   })
-  res.send(users)
+  res.send(_.pick(user, ["id", "name", "email"]))
 })
 
 router.post("/", async (req, res) => {
@@ -22,10 +22,9 @@ router.post("/", async (req, res) => {
   if (email) return res.status(400).send("The email is already registered.")
 
   value.password = await bcrypt.hash(value.password, 10)
-  const user = await User.create(_.pick(value, ["name", "email", "password"]))
-
-  res.send(_.pick(user, ["id", "name", "email"]))
+  const user = await User.create(_.pick(value, ["name", "email", "password", "isAdmin"]))
+  const token = User.generateAuthToken(user.dataValues.id, user.dataValues.isAdmin)
+  res.header("x-auth-token", token).send(_.pick(user, ["id", "name", "email", "isAdmin"]))
 })
-
 
 module.exports = router

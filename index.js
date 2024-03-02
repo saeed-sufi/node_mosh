@@ -19,6 +19,10 @@ const app = express()
 // console.log(app.get('env'))
 // console.log("NODE_ENV: " + process.env.NODE_ENV)
 
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwrPrivateKey is not defined.')
+  process.exit(1)
+}
 console.log('Application Name: ' + config.get('name'))
 
 app.set('view engine', 'pug')
