@@ -4,12 +4,16 @@ const express = require('express')
 const router = express.Router()
 const { Genre, validate } = require('../models/genre')
 
-router.get('/', async (req, res) => {
-  const genres = await Genre.findAll({
+router.get('/', async (req, res, next) => {
+  try {
+    const genres = await Genre.findAll({
     order: [['name', 'DESC']],
     attributes: ['id', 'name']
   })
   res.send(genres)
+  } catch (ex) {
+    next(ex)
+  }
 })
 
 router.get('/:id', async (req, res) => {
@@ -23,7 +27,7 @@ router.get('/:id', async (req, res) => {
   res.send(genre)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body)
   if (error) return res.status(400).send(error.details[0].message)
 
