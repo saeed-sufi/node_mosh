@@ -1,8 +1,8 @@
 const Joi = require("joi")
 const sequelize = require("../dbConfig")
 const { DataTypes } = require("sequelize")
-const {Customer} = require('./customer')
-const { Movie } = require('./movie')
+const { Customer } = require("./customer")
+const { Movie } = require("./movie")
 
 const Rental = sequelize.define(
   "Rental",

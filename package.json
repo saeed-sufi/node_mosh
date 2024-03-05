@@ -23,14 +23,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc -c .jsdoc.json",
-    "jsdoc-config": "jsdoc entry-file.js -t ./minami"
+    "doc": "jsdoc -c .jsdoc.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "eslint": "^8.57.0",
     "minami": "^1.2.3"
   }
 }

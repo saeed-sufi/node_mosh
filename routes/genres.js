@@ -108,7 +108,7 @@ router.get("/:id", async (req, res) => {
  *      500:
  *        description: 'Server error'
  */
-router.post("/",  async (req, res) => {
+router.post("/", async (req, res) => {
   const { error } = validate(req.body)
   if (error) return res.status(400).send(error.details[0].message)
 
@@ -131,7 +131,7 @@ router.post("/",  async (req, res) => {
  *          description: The genre id
  *      requestBody:
  *        required: true
- *        content: 
+ *        content:
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Genre'
