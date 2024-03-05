@@ -14,16 +14,23 @@
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
-    "sequelize": "^6.37.1"
+    "sequelize": "^6.37.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "taffydb": "^2.7.3"
   },
   "name": "node_rest_mosh",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc"
+    "doc": "jsdoc -c .jsdoc.json",
+    "jsdoc-config": "jsdoc entry-file.js -t ./minami"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "minami": "^1.2.3"
+  }
 }
